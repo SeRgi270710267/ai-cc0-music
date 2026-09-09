@@ -12,6 +12,9 @@ function ensureLiked() {
 function isLiked(id) {
   return ensureLiked().has(String(id || ""));
 }
+function likedSongIds() {
+  return songs().filter(function (s) { return isLiked(s.id); }).map(function (s) { return s.id; });
+}
 function heartSvg() {
   return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 }
@@ -49,6 +52,7 @@ function paintHearts(id) {
 
 toggleLike = function (id) {
   ensureLiked();
+  if (typeof ensurePrefs === "function") ensurePrefs();
   id = String(id || likeTargetId() || "");
   if (!id) {
     toast("Open or play a track first");
@@ -59,6 +63,7 @@ toggleLike = function (id) {
     toast("Removed from Liked Songs");
   } else {
     state.liked.add(id);
+    if (state.hidden) state.hidden.delete("liked");
     toast("Added to Liked Songs");
   }
   save();
@@ -92,3 +97,67 @@ toast = function (msg) {
   clearTimeout(toast._t);
   toast._t = setTimeout(function () { el.hidden = true; }, 2800);
 };
+
+const _mixByIdLike = mixById;
+mixById = function (id) {
+  ensureLiked();
+  if (id === "liked") {
+    return { id: "liked", name: "Liked Songs", ids: likedSongIds(), desc: "Playlist" };
+  }
+  return _mixByIdLike(id);
+};
+
+if (typeof libEntries === "function") {
+  const _libEntriesLike = libEntries;
+  libEntries = function () {
+    ensureLiked();
+    if (state.hidden && state.liked.size) state.hidden.delete("liked");
+    const items = _libEntriesLike();
+    const f = state.libFilter || "all";
+    if (f !== "all" && f !== "albums") return items;
+    const seen = {};
+    items.forEach(function (e) { seen[e.go] = true; });
+    songs().forEach(function (s) {
+      if (!isLiked(s.id)) return;
+      const go = "album/" + s.id;
+      if (seen[go]) return;
+      items.push({
+        go: go,
+        name: s.title,
+        sub: "Liked · Single",
+        img: s.cover,
+        round: false,
+        removeId: "album-" + s.id,
+      });
+    });
+    return items;
+  };
+}
+
+if (typeof removeFromLibrary === "function") {
+  const _removeFromLibraryLike = removeFromLibrary;
+  removeFromLibrary = function (id) {
+    id = String(id || "");
+    if (id.indexOf("album-") === 0) {
+      const songId = id.slice(6);
+      ensureLiked();
+      if (state.liked.has(songId)) state.liked.delete(songId);
+      if (state.follows) state.follows.delete(id);
+      save();
+      toast("Removed from Your Library");
+      if (typeof render === "function") render();
+      return;
+    }
+    _removeFromLibraryLike(id);
+  };
+}
+
+if (typeof applySnap === "function") {
+  const _applySnapLike = applySnap;
+  applySnap = function (s) {
+    _applySnapLike(s);
+    ensureLiked();
+  };
+}
+
+ensureLiked();
