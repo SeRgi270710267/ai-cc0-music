@@ -247,6 +247,12 @@
 .player {
   padding: 0 16px;
   column-gap: 16px;
+  background: #181818 !important;
+  border-top: 1px solid #282828;
+  position: relative;
+  z-index: 50;
+  opacity: 1;
+  isolation: isolate;
 }
 .now-meta {
   flex: 1;
@@ -282,5 +288,8 @@
   }
   .row-scroll .card {
     width: 148px;
+  }
+  .player {
+    background: #181818 !important;
   }
 }
