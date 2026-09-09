@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./fix.css" />
+    <link rel="stylesheet" href="./account.css" />
   </head>
   <body>
     <div class="app" id="app">
@@ -55,6 +56,7 @@
             <input id="search-input" type="search" placeholder="What do you want to play?" autocomplete="off" />
           </form>
           <div class="top-right">
+            <button class="acct-chip" id="acct-btn" type="button">Get account</button>
             <a class="pill" id="mureka-link" href="https://www.mureka.ai/profile?user_id=146903878795265" target="_blank" rel="noopener">Mureka</a>
           </div>
         </header>
@@ -135,9 +137,64 @@
         </div>
       </div>
     </div>
+    <div id="acct-modal" class="modal" hidden>
+      <div class="modal-card">
+        <div data-acct-panel="welcome">
+          <h3>Anonymous account</h3>
+          <p class="acct-lead">No email. No name. You get a 16-digit number, like Mullvad. Likes, playlists, and follows stay on this browser unless you export a backup.</p>
+          <div class="acct-actions">
+            <button class="solid" id="acct-create" type="button">Generate account</button>
+            <button class="ghost" id="acct-goto-login" type="button">I have a number</button>
+          </div>
+        </div>
+        <div data-acct-panel="created" hidden>
+          <h3>Save this number</h3>
+          <p class="acct-lead">This is the only way back in. We cannot recover it.</p>
+          <div class="acct-num" id="acct-created-num"></div>
+          <div class="acct-actions">
+            <button class="ghost" id="acct-copy" type="button">Copy number</button>
+            <button class="ghost" id="acct-export" type="button">Download backup</button>
+            <button class="solid" id="acct-saved" type="button">I saved it</button>
+          </div>
+        </div>
+        <div data-acct-panel="login" hidden>
+          <h3>Log in</h3>
+          <p class="acct-lead">Enter your 16-digit account number.</p>
+          <input id="acct-login-input" type="text" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000" maxlength="19" />
+          <div class="acct-actions">
+            <button class="ghost" id="acct-back-welcome" type="button">Back</button>
+            <button class="solid" id="acct-login-go" type="button">Log in</button>
+          </div>
+        </div>
+        <div data-acct-panel="missing" hidden>
+          <h3>Not on this device</h3>
+          <p class="acct-lead">No saved data for <span id="acct-missing-num"></span> in this browser. Import a backup, or use it as a new empty account here.</p>
+          <div class="acct-actions">
+            <button class="ghost" id="acct-import-missing" type="button">Import backup</button>
+            <button class="solid" id="acct-adopt" type="button">Use empty</button>
+          </div>
+        </div>
+        <div data-acct-panel="home" hidden>
+          <h3>Your account</h3>
+          <div class="acct-num" id="acct-home-num"></div>
+          <p class="acct-lead">Likes, playlists, and follows are tied to this number on this browser.</p>
+          <div class="acct-actions">
+            <button class="ghost" id="acct-export" type="button">Download backup</button>
+            <button class="ghost" id="acct-import-btn" type="button">Import backup</button>
+            <button class="ghost" id="acct-logout" type="button">Log out</button>
+            <button class="ghost" id="acct-delete" type="button">Remove from this browser</button>
+          </div>
+        </div>
+        <div class="modal-actions" style="margin-top:16px">
+          <button class="ghost" id="acct-close" type="button">Close</button>
+        </div>
+        <input id="acct-import" type="file" accept="application/json,.json" hidden />
+      </div>
+    </div>
     <div id="toast" class="toast" hidden></div>
     <audio id="audio" preload="metadata"></audio>
     <script src="./core.js"></script>
+    <script src="./account.js"></script>
     <script src="./views.js"></script>
     <script src="./boot.js"></script>
     <script src="./home-boot.js"></script>
