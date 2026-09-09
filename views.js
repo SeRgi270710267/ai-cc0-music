@@ -7,7 +7,7 @@ function trackRows(list, extra) {
       <td class="idx">${idx}</td>
       <td><div class="t-cell"><img src="${s.cover}" alt=""><div><div>${escapeHtml(s.title)}</div><div class="t-sub">${escapeHtml(s.character || state.catalog.name)}</div></div></div></td>
       <td class="t-sub">${extra === "album" ? "Single" : (s.play_count || 0).toLocaleString()}</td>
-      <td><button class="heart ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button">${state.liked.has(s.id) ? "♥" : "♡"}</button></td>
+      <td><button class="follow like-pill ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button">${state.liked.has(s.id) ? "Liked" : "Like"}</button></td>
       <td class="dur">${fmt(s.duration_ms)}</td>
     </tr>`;
   }).join("");
@@ -185,7 +185,7 @@ function renderAlbum() {
       <div class="meta">${escapeHtml(state.catalog.name)} · ${year(s.published_at)} · ${fmt(s.duration_ms)} · ${s.model || "Mureka"}</div></div></section>
     <div class="actions">
       <button class="play-lg" data-play="${s.id}" type="button">${PLAY}</button>
-      <button class="heart ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button" style="font-size:22px">${state.liked.has(s.id) ? "♥" : "♡"}</button>
+      <button class="follow like-pill ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button">${state.liked.has(s.id) ? "Liked" : "Like"}</button>
       <button class="follow" data-radio="${s.id}" type="button">Radio</button>
       <a class="follow" href="${s.mureka_url}" target="_blank" rel="noopener">Mureka</a>
     </div>
