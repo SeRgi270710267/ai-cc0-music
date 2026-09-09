@@ -1,54 +1,286 @@
+/* Undo the too-broad 48px icon rule from styles.css */
+.liked-ico,
+.mix-ico {
+  width: auto;
+  height: auto;
+}
+
+.lib-item img,
+.lib-item .liked-ico,
+.lib-item .mix-ico {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 4px;
+  flex: none;
+  margin: 0;
+}
+
+.shortcut img,
+.shortcut .liked-ico,
+.shortcut .mix-ico {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 0;
+  margin: 0;
+  flex: none;
+}
+
+.card img,
 .card .mix-ico,
 .card .liked-ico,
 .card-art {
   width: 100% !important;
   height: auto !important;
   aspect-ratio: 1;
-  margin-bottom: 10px;
+  margin: 0 0 12px;
   border-radius: 8px;
+  object-fit: cover;
 }
-.shortcut .liked-ico,
-.shortcut .mix-ico {
-  width: 64px !important;
-  height: 64px !important;
+
+.card.artist img {
+  border-radius: 50%;
+}
+
+.hero .big-cover,
+.hero .liked-ico.big-cover,
+.hero .mix-ico.big-cover {
+  width: 192px !important;
+  height: 192px !important;
   margin: 0;
-  border-radius: 0;
+  flex: none;
 }
+
+/* Shell */
+.top-nav {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+.topbar {
+  padding: 16px 24px;
+  gap: 12px;
+  background: transparent;
+}
+.search-wrap {
+  max-width: 364px;
+}
+.view {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 32px;
+}
+
+/* Home */
 .home-wrap {
-  background: linear-gradient(180deg, #533483 0%, #121212 320px);
+  background: linear-gradient(180deg, #4a2b7a 0%, #121212 280px);
   min-height: 100%;
-  padding-top: 4px;
+  padding: 8px 0 24px;
+}
+.greeting {
+  padding: 8px 24px 12px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
 }
 .home-filters {
   display: flex;
   gap: 8px;
-  padding: 8px 24px 4px;
+  padding: 0 24px 20px;
 }
-.row-scroll {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
+.shortcuts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 24px 28px;
 }
-.row-scroll .card {
-  width: 176px;
-  flex: none;
+@media (min-width: 1280px) {
+  .shortcuts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 .shortcut {
   position: relative;
+  min-height: 64px;
+  padding-right: 52px;
+  overflow: hidden;
+}
+.shortcut > span:not(.hover-play) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .shortcut .hover-play {
-  right: 10px;
-  bottom: 8px;
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
   width: 40px;
   height: 40px;
   opacity: 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
 }
 .shortcut:hover .hover-play {
   opacity: 1;
   transform: none;
 }
-.topbar {
-  background: transparent;
+
+/* Rows and sections */
+.section {
+  padding: 8px 24px 20px;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+.section h2,
+.section-head h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+}
+.see {
+  white-space: nowrap;
+}
+.row-scroll {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+.row-scroll .card {
+  width: 168px;
+  flex: none;
+  padding: 12px;
+}
+.cards {
+  gap: 20px;
+}
+.card {
+  padding: 12px;
+}
+.card h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card p {
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.hover-play {
+  right: 16px;
+  bottom: 72px;
+}
+
+/* Artist / album / playlist */
+.hero {
+  padding: 24px 24px 20px;
+  gap: 20px;
+}
+.hero h1 {
+  margin: 8px 0 12px;
+}
+.actions {
+  padding: 16px 24px 12px;
+  gap: 16px;
+}
+.empty {
+  padding: 16px 0 8px;
+}
+
+/* Track table */
+.tracks th,
+.tracks td {
+  padding: 10px 12px;
+}
+.tracks th:first-child,
+.tracks td.idx {
+  padding-left: 8px;
+  width: 40px;
+}
+.tracks td.dur {
+  padding-right: 8px;
+}
+
+/* Library */
+.lib-item span {
+  min-width: 0;
+}
+.lib-item strong,
+.lib-item small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lib-pills {
+  padding: 4px 8px 12px;
+  gap: 8px;
+}
+
+/* Now playing + player */
+.now {
+  width: 320px;
+  padding: 16px;
+  gap: 12px;
+}
+.now-tabs {
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: nowrap;
+}
+#right-body h3 {
+  margin: 12px 0 4px;
+  line-height: 1.25;
+}
+.player {
+  padding: 0 16px;
+  column-gap: 16px;
+}
+.now-meta {
+  flex: 1;
+  min-width: 0;
+}
+#p-title,
+.linkish {
+  max-width: 100%;
+}
+.seek span {
+  width: 40px;
+  text-align: center;
+}
+.extras {
+  gap: 8px;
+}
+
+@media (max-width: 980px) {
+  .shortcuts {
+    grid-template-columns: 1fr;
+    padding: 0 16px 20px;
+  }
+  .greeting,
+  .home-filters,
+  .section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .hero,
+  .actions {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .row-scroll .card {
+    width: 148px;
+  }
 }
