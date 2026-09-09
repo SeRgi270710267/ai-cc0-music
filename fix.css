@@ -1,0 +1,12 @@
+.card .mix-ico,
+.card .liked-ico {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1;
+  margin-bottom: 10px;
+}
+.shortcut .liked-ico,
+.shortcut .mix-ico {
+  width: 64px !important;
+  height: 64px !important;
+}
