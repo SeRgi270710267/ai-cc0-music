@@ -1,12 +1,54 @@
 .card .mix-ico,
-.card .liked-ico {
+.card .liked-ico,
+.card-art {
   width: 100% !important;
   height: auto !important;
   aspect-ratio: 1;
   margin-bottom: 10px;
+  border-radius: 8px;
 }
 .shortcut .liked-ico,
 .shortcut .mix-ico {
   width: 64px !important;
   height: 64px !important;
+  margin: 0;
+  border-radius: 0;
+}
+.home-wrap {
+  background: linear-gradient(180deg, #533483 0%, #121212 320px);
+  min-height: 100%;
+  padding-top: 4px;
+}
+.home-filters {
+  display: flex;
+  gap: 8px;
+  padding: 8px 24px 4px;
+}
+.row-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+}
+.row-scroll .card {
+  width: 176px;
+  flex: none;
+}
+.shortcut {
+  position: relative;
+}
+.shortcut .hover-play {
+  right: 10px;
+  bottom: 8px;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+.shortcut:hover .hover-play {
+  opacity: 1;
+  transform: none;
+}
+.topbar {
+  background: transparent;
 }
