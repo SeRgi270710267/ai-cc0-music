@@ -1,0 +1,59 @@
+.acct-chip {
+  background: #232323;
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.acct-chip.on {
+  background: #fff;
+  color: #000;
+}
+.acct-chip:hover { filter: brightness(1.08); }
+#acct-modal .modal-card {
+  width: min(460px, 92vw);
+}
+.acct-lead {
+  color: #b3b3b3;
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0 0 16px;
+}
+.acct-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px 12px;
+  margin: 0 0 16px;
+}
+.acct-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.acct-actions .solid,
+.acct-actions .ghost {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+}
+#acct-login-input {
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 0;
+  background: #121212;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
