@@ -57,3 +57,48 @@
   letter-spacing: 0.12em;
   text-align: center;
 }
+.lib-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.lib-row .lib-item {
+  flex: 1;
+  min-width: 0;
+}
+.lib-x {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #b3b3b3;
+  font-size: 18px;
+  line-height: 1;
+}
+.lib-x:hover {
+  color: #fff;
+  background: #333;
+}
+.lib-empty {
+  color: #b3b3b3;
+  font-size: 13px;
+  padding: 12px 8px;
+  margin: 0;
+  line-height: 1.4;
+}
+.pref-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.pref-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: #1ed760;
+}
