@@ -119,6 +119,7 @@ if (typeof libEntries === "function") {
     items.forEach(function (e) { seen[e.go] = true; });
     songs().forEach(function (s) {
       if (!isLiked(s.id)) return;
+      if (typeof isHidden === "function" && isHidden("album-" + s.id)) return;
       const go = "album/" + s.id;
       if (seen[go]) return;
       items.push({
@@ -138,16 +139,6 @@ if (typeof removeFromLibrary === "function") {
   const _removeFromLibraryLike = removeFromLibrary;
   removeFromLibrary = function (id) {
     id = String(id || "");
-    if (id.indexOf("album-") === 0) {
-      const songId = id.slice(6);
-      ensureLiked();
-      if (state.liked.has(songId)) state.liked.delete(songId);
-      if (state.follows) state.follows.delete(id);
-      save();
-      toast("Removed from Your Library");
-      if (typeof render === "function") render();
-      return;
-    }
     _removeFromLibraryLike(id);
   };
 }
@@ -157,30 +148,6 @@ if (typeof applySnap === "function") {
   applySnap = function (s) {
     _applySnapLike(s);
     ensureLiked();
-  };
-}
-
-if (typeof renderSearch === "function") {
-  const _renderSearchHide = renderSearch;
-  renderSearch = function () {
-    _renderSearchHide();
-    if (typeof isLoggedIn !== "function" || !isLoggedIn()) return;
-    document.querySelectorAll("#view .card[data-go^=\"playlist/\"]").forEach(function (card) {
-      const href = card.getAttribute("data-go") || "";
-      const id = href.replace(/^playlist\//, "");
-      if (!id || id === "liked") return;
-      if (card.querySelector("[data-follow]")) return;
-      const inLib = state.follows && state.follows.has(id);
-      const hidden = typeof isHidden === "function" && isHidden(id);
-      if (inLib && !hidden) return;
-      const b = document.createElement("button");
-      b.className = "follow";
-      b.type = "button";
-      b.setAttribute("data-follow", id);
-      b.textContent = hidden ? "Add back" : "Add to library";
-      b.style.marginTop = "8px";
-      card.appendChild(b);
-    });
   };
 }
 
