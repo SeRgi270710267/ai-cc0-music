@@ -270,23 +270,27 @@
   gap: 8px;
 }
 
-.heart {
-  color: #fff;
-  font-size: 22px;
-  min-width: 36px;
-  min-height: 36px;
-  opacity: 0.9;
-  line-height: 1;
+.like-pill {
+  min-width: 76px;
+  text-align: center;
 }
-.heart.on,
+.like-pill.on {
+  border-color: var(--green);
+  color: var(--green);
+}
+#like-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
 #like-btn.on {
   color: var(--green);
-  opacity: 1;
-  transform: scale(1.08);
 }
-#like-btn {
-  font-size: 22px;
-  min-width: 36px;
+#like-btn.on svg {
+  fill: var(--green);
+  stroke: var(--green);
 }
 
 @media (max-width: 980px) {
