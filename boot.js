@@ -30,7 +30,6 @@ function updatePlayer() {
   document.getElementById("p-title").textContent = s.title;
   document.getElementById("p-artist").textContent = `${state.catalog.name} · ${s.character || "Single"}`;
   document.getElementById("p-cover").src = s.cover;
-  document.getElementById("like-btn").textContent = state.liked.has(s.id) ? "♥" : "♡";
   document.getElementById("like-btn").classList.toggle("on", state.liked.has(s.id));
   document.getElementById("dur-time").textContent = fmt((audio.duration || 0) * 1000 || s.duration_ms);
   document.title = `${s.title} · ${state.catalog.name}`;
@@ -67,7 +66,7 @@ function renderRight() {
     <h3>${escapeHtml(s.title)}</h3>
     <p class="t-sub">${escapeHtml(state.catalog.name)} · ${escapeHtml(s.character || "Single")}</p>
     <div class="actions" style="padding:8px 0">
-      <button class="heart ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button">${state.liked.has(s.id) ? "♥" : "♡"}</button>
+      <button class="follow like-pill ${state.liked.has(s.id) ? "on" : ""}" data-like="${s.id}" type="button">${state.liked.has(s.id) ? "Liked" : "Like"}</button>
       <button class="follow" data-radio="${s.id}" type="button">Radio</button>
     </div>
     <dl class="credits">
