@@ -12,3 +12,10 @@ document.body.addEventListener("click", (e) => {
   state.homeFilter = t.dataset.homefilter;
   if ((state.route.name || "home") === "home") renderHome();
 }, true);
+document.getElementById("acct-modal").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (b && /Download backup/.test(b.textContent || "")) {
+    e.preventDefault();
+    exportAccount();
+  }
+});
