@@ -4,53 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI CC0 Music</title>
-    <meta
-      name="description"
-      content="Listen to AI CC0 Music — a Spotify-style player for the public Mureka catalog."
-    />
+    <meta name="description" content="Spotify-style player for the public AI CC0 Music catalog on Mureka." />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" href="https://static-cos.mureka.ai/cos-prod/mureka/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="app" id="app">
       <aside class="sidebar">
         <div class="nav-card">
-          <a class="nav-link active" data-view="home" href="#/">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 1.515a3 3 0 0 0-3 0L3 5.845a3 3 0 0 0-1.5 2.598v7.114a3 3 0 0 0 1.5 2.598l7.5 4.33a3 3 0 0 0 3 0l7.5-4.33a3 3 0 0 0 1.5-2.598V8.443a3 3 0 0 0-1.5-2.598l-7.5-4.33zM12 12.75a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5z"/></svg>
+          <a class="nav-link" data-go="home" href="#/">
+            <svg viewBox="0 0 24 24"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5L12 3z"/></svg>
             Home
           </a>
-          <a class="nav-link" data-view="search" href="#/search">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 1 0 4.686 13.32l4.247 4.247a1 1 0 0 0 1.414-1.414l-4.247-4.247A7.5 7.5 0 0 0 10.5 3zm-5.5 7.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0z"/></svg>
+          <a class="nav-link" data-go="search" href="#/search">
+            <svg viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 1 0 4.7 13.3l4.2 4.3 1.4-1.4-4.2-4.3A7.5 7.5 0 0 0 10.5 3zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z"/></svg>
             Search
           </a>
         </div>
         <div class="lib-card">
           <div class="lib-head">
-            <span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.75A.75.75 0 0 1 3.75 5h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 5.75zm0 6A.75.75 0 0 1 3.75 11h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 11.75zm0 6A.75.75 0 0 1 3.75 17h10.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 17.75z"/></svg>
+            <button class="lib-title" data-go="library" type="button">
+              <svg viewBox="0 0 24 24"><path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h12v2H3v-2z"/></svg>
               Your Library
-            </span>
+            </button>
+            <button class="icon-btn" id="new-playlist" type="button" title="Create playlist">+</button>
           </div>
-          <button class="lib-playlist" data-view="home" type="button">
-            <img id="lib-avatar" alt="" />
-            <span>
-              <strong id="lib-name">AI CC0 Music</strong>
-              <small>Artist · CC0</small>
-            </span>
-          </button>
-          <button class="lib-playlist" data-view="library" type="button">
-            <div class="liked-ico">♥</div>
-            <span>
-              <strong>Liked Songs</strong>
-              <small>Playlist</small>
-            </span>
-          </button>
+          <div class="lib-pills">
+            <button class="chip-btn on" data-libfilter="all" type="button">All</button>
+            <button class="chip-btn" data-libfilter="playlists" type="button">Playlists</button>
+            <button class="chip-btn" data-libfilter="artists" type="button">Artists</button>
+            <button class="chip-btn" data-libfilter="albums" type="button">Albums</button>
+          </div>
+          <div id="lib-list"></div>
         </div>
       </aside>
 
@@ -61,51 +50,55 @@
             <button class="round" id="fwd-btn" type="button" aria-label="Forward">›</button>
           </div>
           <form class="search-wrap" id="search-form">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 1 0 4.686 13.32l4.247 4.247a1 1 0 0 0 1.414-1.414l-4.247-4.247A7.5 7.5 0 0 0 10.5 3zm-5.5 7.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 1 0 4.7 13.3l4.2 4.3 1.4-1.4-4.2-4.3A7.5 7.5 0 0 0 10.5 3zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z"/></svg>
             <input id="search-input" type="search" placeholder="What do you want to play?" autocomplete="off" />
           </form>
-          <a class="pill" id="mureka-link" href="https://www.mureka.ai/profile?user_id=146903878795265" target="_blank" rel="noopener">Open on Mureka</a>
+          <div class="top-right">
+            <a class="pill" id="mureka-link" href="https://www.mureka.ai/profile?user_id=146903878795265" target="_blank" rel="noopener">Mureka</a>
+          </div>
         </header>
         <div id="view" class="view"></div>
       </main>
 
-      <aside class="now" id="now-panel" hidden>
-        <div class="now-head">
-          <strong id="now-title">Now playing</strong>
+      <aside class="now" id="right-panel" hidden>
+        <div class="now-tabs">
+          <button class="chip-btn on" data-panel="now" type="button">Now playing</button>
+          <button class="chip-btn" data-panel="queue" type="button">Queue</button>
+          <button class="chip-btn" data-panel="lyrics" type="button">Lyrics</button>
           <button class="icon-btn" id="close-now" type="button" aria-label="Close">×</button>
         </div>
-        <img id="now-cover" alt="" />
-        <h3 id="now-song"></h3>
-        <p id="now-artist"></p>
-        <div class="lyrics" id="lyrics"></div>
+        <div id="right-body"></div>
       </aside>
     </div>
 
     <footer class="player">
       <div class="now-mini">
-        <img id="p-cover" alt="" />
-        <div>
-          <div id="p-title">Select a track</div>
+        <button class="cover-btn" id="open-now" type="button" title="Now playing">
+          <img id="p-cover" alt="" />
+        </button>
+        <div class="now-meta">
+          <button class="linkish" id="p-title" type="button">Select a track</button>
           <div id="p-artist">AI CC0 Music</div>
         </div>
         <button class="icon-btn" id="like-btn" type="button" aria-label="Like">♡</button>
       </div>
       <div class="transport">
         <div class="t-btns">
-          <button class="icon-btn" id="shuffle-btn" type="button" aria-label="Shuffle">
-            <svg viewBox="0 0 24 24"><path d="M17 3h4v4h-2V6.41l-4.3 4.3-1.4-1.42L17.58 5H17V3zM3 7h6.58l4.3 4.3 1.42-1.42L10.41 5H3v2zm14 10v-1.59l-3.7-3.7-1.4 1.42 4.28 4.28H17v1.59h4v-4h-2v.59zM3 17h6.59l1.7-1.7-1.41-1.41L7.17 15H3v2z"/></svg>
+          <button class="icon-btn" id="shuffle-btn" type="button" title="Shuffle">
+            <svg viewBox="0 0 24 24"><path d="M17 3h4v4h-2V6.4l-4.3 4.3-1.4-1.4L17.6 5H17V3zM3 7h6.6l4.3 4.3 1.4-1.4L10.4 5H3v2zm14 10v-1.6l-3.7-3.7-1.4 1.4 4.3 4.3H17V19h4v-4h-2v.6zM3 17h6.6l1.7-1.7-1.4-1.4L7.2 15H3v2z"/></svg>
           </button>
-          <button class="icon-btn" id="prev-btn" type="button" aria-label="Previous">
+          <button class="icon-btn" id="prev-btn" type="button" title="Previous">
             <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6l-8.5 6z"/></svg>
           </button>
           <button class="play" id="play-btn" type="button" aria-label="Play">
-            <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </button>
-          <button class="icon-btn" id="next-btn" type="button" aria-label="Next">
+          <button class="icon-btn" id="next-btn" type="button" title="Next">
             <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/></svg>
           </button>
-          <button class="icon-btn" id="repeat-btn" type="button" aria-label="Repeat">
+          <button class="icon-btn" id="repeat-btn" type="button" title="Repeat">
             <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+            <span class="badge" id="repeat-badge" hidden>1</span>
           </button>
         </div>
         <div class="seek">
@@ -115,17 +108,33 @@
         </div>
       </div>
       <div class="extras">
-        <button class="icon-btn" id="lyrics-btn" type="button" aria-label="Lyrics">♪</button>
-        <div class="vol">
-          <input id="vol" type="range" min="0" max="1" step="0.01" value="0.9" />
-        </div>
+        <button class="icon-btn" id="lyrics-btn" type="button" title="Lyrics">♪</button>
+        <button class="icon-btn" id="queue-btn" type="button" title="Queue">☰</button>
+        <button class="icon-btn" id="mute-btn" type="button" title="Mute">
+          <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zm11.5 3a3.5 3.5 0 0 0-1.8-3.1v6.2A3.5 3.5 0 0 0 15.5 12z"/></svg>
+        </button>
+        <div class="vol"><input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" /></div>
       </div>
     </footer>
+
     <nav class="mobile-nav">
-      <a data-view="home" href="#/">Home</a>
-      <a data-view="search" href="#/search">Search</a>
-      <a data-view="library" href="#/library">Library</a>
+      <a data-go="home" href="#/">Home</a>
+      <a data-go="search" href="#/search">Search</a>
+      <a data-go="library" href="#/library">Library</a>
     </nav>
+
+    <div id="ctx" class="ctx" hidden></div>
+    <div id="modal" class="modal" hidden>
+      <div class="modal-card">
+        <h3 id="modal-title">Create playlist</h3>
+        <input id="modal-input" type="text" maxlength="60" placeholder="My playlist" />
+        <div class="modal-actions">
+          <button class="ghost" id="modal-cancel" type="button">Cancel</button>
+          <button class="solid" id="modal-ok" type="button">Create</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast" class="toast" hidden></div>
     <audio id="audio" preload="metadata"></audio>
     <script src="./app.js"></script>
   </body>
