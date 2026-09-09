@@ -124,7 +124,7 @@ if (typeof libEntries === "function") {
       items.push({
         go: go,
         name: s.title,
-        sub: "Liked · Single",
+        sub: "Liked \u00b7 Single",
         img: s.cover,
         round: false,
         removeId: "album-" + s.id,
@@ -157,6 +157,30 @@ if (typeof applySnap === "function") {
   applySnap = function (s) {
     _applySnapLike(s);
     ensureLiked();
+  };
+}
+
+if (typeof renderSearch === "function") {
+  const _renderSearchHide = renderSearch;
+  renderSearch = function () {
+    _renderSearchHide();
+    if (typeof isLoggedIn !== "function" || !isLoggedIn()) return;
+    document.querySelectorAll("#view .card[data-go^=\"playlist/\"]").forEach(function (card) {
+      const href = card.getAttribute("data-go") || "";
+      const id = href.replace(/^playlist\//, "");
+      if (!id || id === "liked") return;
+      if (card.querySelector("[data-follow]")) return;
+      const inLib = state.follows && state.follows.has(id);
+      const hidden = typeof isHidden === "function" && isHidden(id);
+      if (inLib && !hidden) return;
+      const b = document.createElement("button");
+      b.className = "follow";
+      b.type = "button";
+      b.setAttribute("data-follow", id);
+      b.textContent = hidden ? "Add back" : "Add to library";
+      b.style.marginTop = "8px";
+      card.appendChild(b);
+    });
   };
 }
 
