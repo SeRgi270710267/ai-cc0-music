@@ -85,6 +85,7 @@
 }
 .home-filters {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 0 24px 20px;
 }
