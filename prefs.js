@@ -154,31 +154,36 @@ function renderHome() {
     })),
   ].filter(Boolean).slice(0, 8);
   const filter = state.homeFilter || "all";
-  const music = filter !== "videos";
-  const videosOn = filter !== "music";
+  const showMixFeed = filter === "all" || filter === "music";
+  const showArtists = filter === "all" || filter === "music" || filter === "artists";
+  const showAlbums = filter === "all" || filter === "music" || filter === "albums";
+  const showVideos = filter === "all" || filter === "videos";
   const genreMixes = mx.filter((m) => m.kind === "genre" || m.kind === "mood");
   const voiceMixes = mx.filter((m) => m.kind === "voice");
   const made = isLoggedIn() ? mx.filter((m) => !state.follows.has(m.id)).slice(0, 8) : mx.slice(0, 8);
   const savedMix = isLoggedIn() ? mx.filter((m) => state.follows.has(m.id)) : [];
+  const artistCards = artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true) + voiceMixes.map((m) => artistCard(m.name, m.desc, m.cover, `playlist/${m.id}`, m.ids, true)).join("");
   viewEl.innerHTML = `<div class="home-wrap">
     <h1 class="greeting">${greeting()}</h1>
     <div class="home-filters">
       <button class="chip-btn ${filter === "all" ? "on" : ""}" data-homefilter="all" type="button">All</button>
       <button class="chip-btn ${filter === "music" ? "on" : ""}" data-homefilter="music" type="button">Music</button>
       <button class="chip-btn ${filter === "videos" ? "on" : ""}" data-homefilter="videos" type="button">Videos</button>
+      <button class="chip-btn ${filter === "artists" ? "on" : ""}" data-homefilter="artists" type="button">Artists</button>
+      <button class="chip-btn ${filter === "albums" ? "on" : ""}" data-homefilter="albums" type="button">Albums</button>
     </div>
-    ${music ? `<div class="shortcuts">${tiles.map((t) => `<button class="shortcut" data-go="${t.go}" type="button">
+    ${showMixFeed ? `<div class="shortcuts">${tiles.map((t) => `<button class="shortcut" data-go="${t.go}" type="button">
       ${t.liked ? `<div class="liked-ico">♥</div>` : t.img ? `<img src="${t.img}" alt="">` : `<div class="mix-ico ${t.ico || "green"}">♪</div>`}
       <span>${escapeHtml(t.title)}</span>
       <span class="hover-play" data-play-list="${(t.play || []).join(",")}">${PLAY}</span>
     </button>`).join("")}</div>` : ""}
-    ${music ? homeRow("Jump back in", jump.map(cardSong).join("")) : ""}
-    ${music && savedMix.length ? homeRow("Your playlists", savedMix.map(mixCard).join("")) : ""}
-    ${music && !homeOff("made") ? homeRow("Made for you", made.map(mixCard).join(""), `<a class="see" data-go="library" href="#/library">Library</a>`) : ""}
-    ${music && !homeOff("mixes") && genreMixes.length ? homeRow("Your top mixes", genreMixes.map(mixCard).join("")) : ""}
-    ${music && !homeOff("artists") ? homeRow("Popular artists", artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true) + voiceMixes.map((m) => artistCard(m.name, m.desc, m.cover, `playlist/${m.id}`, m.ids, true)).join("")) : ""}
-    ${music && !homeOff("releases") ? homeRow("New releases", songs().map(cardSong).join(""), `<a class="see" data-go="artist" href="#/artist">Show all</a>`) : ""}
-    ${videosOn && !homeOff("videos") && (c.videos || []).length ? homeRow("Music videos", c.videos.map((v) => `<article class="card video-card">
+    ${showMixFeed ? homeRow("Jump back in", jump.map(cardSong).join("")) : ""}
+    ${showMixFeed && savedMix.length ? homeRow("Your playlists", savedMix.map(mixCard).join("")) : ""}
+    ${showMixFeed && !homeOff("made") ? homeRow("Made for you", made.map(mixCard).join(""), `<a class="see" data-go="library" href="#/library">Library</a>`) : ""}
+    ${showMixFeed && !homeOff("mixes") && genreMixes.length ? homeRow("Your top mixes", genreMixes.map(mixCard).join("")) : ""}
+    ${showArtists && (filter === "artists" || !homeOff("artists")) ? homeRow(filter === "artists" ? "Artists" : "Popular artists", artistCards) : ""}
+    ${showAlbums && (filter === "albums" || !homeOff("releases")) ? homeRow(filter === "albums" ? "Albums" : "New releases", songs().map(cardSong).join(""), filter === "albums" ? "" : `<a class="see" data-go="artist" href="#/artist">Show all</a>`) : ""}
+    ${showVideos && (filter === "videos" || !homeOff("videos")) && (c.videos || []).length ? homeRow("Music videos", c.videos.map((v) => `<article class="card video-card">
       <video src="${v.url}" poster="${v.cover}" controls preload="metadata"></video>
       <h3>${escapeHtml(v.title)}</h3><p>Video · ${fmt(v.duration_ms)}</p></article>`).join("")) : ""}
   </div>`;
