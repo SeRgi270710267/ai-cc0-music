@@ -47,12 +47,9 @@ function removeFromLibrary(id) {
     if (state.hidden.has("liked")) state.hidden.delete("liked");
     else state.hidden.add("liked");
     toast(state.hidden.has("liked") ? "Liked Songs hidden" : "Liked Songs restored");
-  } else if (state.follows.has(id) || id === "artist" || id.startsWith("voice-") || id.startsWith("genre-") || id.startsWith("mood-") || ["this-is", "on-repeat", "discover"].includes(id)) {
+  } else {
     state.follows.delete(id);
     if (id === "artist") state.following = false;
-    state.hidden.add(id);
-    toast(isLoggedIn() ? "Removed from view. Search to find it again." : "Removed from Your Library");
-  } else {
     state.hidden.add(id);
     toast(isLoggedIn() ? "Removed from view. Search to find it again." : "Removed from Your Library");
   }
@@ -80,7 +77,7 @@ function libEntries() {
     }
   }
   if (f === "all" || f === "artists") {
-    if ((logged ? state.follows.has("artist") : !isHidden("artist")) && !isHidden("artist")) {
+    if (!isHidden("artist") && (logged ? state.follows.has("artist") : true)) {
       items.push({ go: "artist", name: c.name, sub: "Artist", img: c.avatar, round: true, removeId: "artist" });
     }
     for (const ch of c.characters || []) {
@@ -93,8 +90,8 @@ function libEntries() {
   if (f === "all" || f === "albums") {
     for (const s of songs()) {
       const aid = "album-" + s.id;
+      if (isHidden(aid)) continue;
       if (logged && !state.follows.has(aid) && !(typeof isLiked === "function" && isLiked(s.id))) continue;
-      if (!logged && isHidden(aid)) continue;
       items.push({ go: `album/${s.id}`, name: s.title, sub: "Single", img: s.cover, round: false, removeId: logged ? aid : null });
     }
   }
@@ -129,7 +126,7 @@ function renderLibrary() {
   viewEl.innerHTML = `<section class="section">
     <h2>Your Library</h2>
     <p class="t-sub">${isLoggedIn()
-      ? "Only what you save or follow. Remove anything with \u00d7. Search still finds hidden playlists."
+      ? "Only what you keep. Hide anything on Home with \u00d7. Search still finds it."
       : "Log in to choose which playlists and artists stay in Your Library."}</p>
     <div class="cards">${entries.map((e) => `<article class="card ${e.round ? "artist" : ""}" data-go="${e.go}">
       ${e.img ? `<img src="${e.img}" alt="">` : `<div class="${e.cls}" style="width:100%;aspect-ratio:1;border-radius:8px;margin-bottom:10px">${e.glyph || "\u266a"}</div>`}
@@ -138,11 +135,13 @@ function renderLibrary() {
   </section>`;
 }
 
+function homeDismissable(html, id) {
+  if (!isLoggedIn() || !id) return html;
+  return `<div class="mix-wrap">${html}<button class="card-x" data-libremove="${escapeHtml(id)}" type="button" title="Don't show this">\u00d7</button></div>`;
+}
 function mixCardDismissable(m) {
   m = Object.assign({}, m, { round: false });
-  const inner = mixCard(m);
-  if (!isLoggedIn()) return inner;
-  return `<div class="mix-wrap">${inner}<button class="card-x" data-libremove="${escapeHtml(m.id)}" type="button" title="Remove from view">\u00d7</button></div>`;
+  return homeDismissable(mixCard(m), m.id);
 }
 
 function renderHome() {
@@ -151,11 +150,12 @@ function renderHome() {
   const rec = state.recents.map(songById).filter(Boolean);
   const mx = mixes().filter((m) => m.id !== "liked" && !isHidden(m.id));
   const liked = mixById("liked");
-  const jump = rec.length ? rec : songs();
+  const visibleSongs = songs().filter((s) => !isHidden("album-" + s.id));
+  const jump = (rec.length ? rec : visibleSongs).filter((s) => !isHidden("album-" + s.id));
   const tiles = [
     !isHidden("liked") ? { go: "liked", title: "Liked Songs", liked: true, play: (liked && liked.ids) || [] } : null,
     ...jump.slice(0, 2).map((s) => ({ go: `album/${s.id}`, title: s.title, img: s.cover, play: [s.id] })),
-    isLoggedIn() && !state.follows.has("artist") ? null : { go: "artist", title: c.name, img: c.avatar, play: songs().map((s) => s.id) },
+    isHidden("artist") ? null : { go: "artist", title: c.name, img: c.avatar, play: songs().map((s) => s.id) },
     ...mx.filter((m) => !isLoggedIn() || state.follows.has(m.id)).slice(0, 4).map((m) => ({
       go: `playlist/${m.id}`, title: m.name, img: m.cover, ico: m.ico, play: m.ids || [],
     })),
@@ -172,15 +172,13 @@ function renderHome() {
   const savedMix = isLoggedIn() ? mx.filter((m) => state.follows.has(m.id)) : [];
   const playlistCards = playlistMixes.map(mixCardDismissable).join("")
     + state.playlists.map((p) => mixCard({ id: p.id, name: p.name, desc: "Playlist", ids: p.ids || [], ico: "blue" })).join("");
-  const artistCards = artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true)
-    + (c.characters || []).filter((ch) => !isHidden("voice-" + ch.id)).map((ch) => artistCard(
-      ch.name,
-      "Artist",
-      ch.avatar,
-      "playlist/voice-" + ch.id,
-      songs().filter((s) => String(s.character_id) === String(ch.id)).map((s) => s.id),
-      true
-    )).join("");
+  const artistCards = [
+    isHidden("artist") ? "" : homeDismissable(artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true), "artist"),
+    ...(c.characters || []).filter((ch) => !isHidden("voice-" + ch.id)).map((ch) => homeDismissable(
+      artistCard(ch.name, "Artist", ch.avatar, "playlist/voice-" + ch.id, songs().filter((s) => String(s.character_id) === String(ch.id)).map((s) => s.id), true),
+      "voice-" + ch.id
+    )),
+  ].join("");
   viewEl.innerHTML = `<div class="home-wrap">
     <h1 class="greeting">${greeting()}</h1>
     <div class="home-filters">
@@ -196,12 +194,12 @@ function renderHome() {
       <span>${escapeHtml(t.title)}</span>
       <span class="hover-play" data-play-list="${(t.play || []).join(",")}">${PLAY}</span>
     </button>`).join("")}</div>` : ""}
-    ${showMixFeed ? homeRow("Jump back in", jump.map(cardSong).join("")) : ""}
+    ${showMixFeed ? homeRow("Jump back in", jump.map((s) => homeDismissable(cardSong(s), "album-" + s.id)).join("")) : ""}
     ${showMixFeed && savedMix.length ? homeRow("Your playlists", savedMix.map(mixCardDismissable).join("")) : ""}
     ${showPlaylists && (filter === "playlists" || !homeOff("made")) ? homeRow(filter === "playlists" ? "Playlists" : "Made for you", filter === "playlists" ? playlistCards : made.map(mixCardDismissable).join(""), filter === "playlists" ? "" : `<a class="see" data-go="library" href="#/library">Library</a>`) : ""}
     ${showMixFeed && !homeOff("mixes") && genreMixes.length ? homeRow("Your top mixes", genreMixes.map(mixCardDismissable).join("")) : ""}
     ${showArtists && (filter === "artists" || !homeOff("artists")) ? homeRow(filter === "artists" ? "Artists" : "Popular artists", artistCards) : ""}
-    ${showAlbums && (filter === "albums" || !homeOff("releases")) ? homeRow(filter === "albums" ? "Albums" : "New releases", songs().map(cardSong).join(""), filter === "albums" ? "" : `<a class="see" data-go="artist" href="#/artist">Show all</a>`) : ""}
+    ${showAlbums && (filter === "albums" || !homeOff("releases")) ? homeRow(filter === "albums" ? "Albums" : "New releases", visibleSongs.map((s) => homeDismissable(cardSong(s), "album-" + s.id)).join(""), filter === "albums" ? "" : `<a class="see" data-go="artist" href="#/artist">Show all</a>`) : ""}
     ${showVideos && (filter === "videos" || !homeOff("videos")) && (c.videos || []).length ? homeRow("Music videos", c.videos.map((v) => `<article class="card video-card">
       <video src="${v.url}" poster="${v.cover}" controls preload="metadata"></video>
       <h3>${escapeHtml(v.title)}</h3><p>Video \u00b7 ${fmt(v.duration_ms)}</p></article>`).join("")) : ""}
@@ -231,7 +229,7 @@ function paintPrefs() {
       <input type="checkbox" data-homeoff="${id}" ${homeOff(id) ? "" : "checked"}>
       <span>${label}</span>
     </label>`).join("")}
-    <p class="acct-lead">Hide a playlist with \u00d7 on Home. Search still finds it so you can add it back.</p>`;
+    <p class="acct-lead">Hide any playlist, album, or artist on Home with \u00d7. Search still finds it so you can add it back.</p>`;
 }
 
 const _openAcct = openAcct;
@@ -261,18 +259,32 @@ document.body.addEventListener("change", (e) => {
 toggleFollow = function (id) {
   ensurePrefs();
   id = String(id || "");
-  if (!id) return;
+  if (!id || id === "liked") return;
   if (!state.follows) state.follows = new Set();
-  if (state.follows.has(id)) {
+  if (!isLoggedIn()) {
+    if (state.follows.has(id)) {
+      state.follows.delete(id);
+      if (id === "artist") state.following = false;
+      toast("Unfollowed");
+    } else {
+      state.follows.add(id);
+      if (id === "artist") state.following = true;
+      toast("Following");
+    }
+    save();
+    if (typeof render === "function") render();
+    return;
+  }
+  if (isHidden(id)) {
+    state.hidden.delete(id);
+    state.follows.add(id);
+    if (id === "artist") state.following = true;
+    toast("Added back");
+  } else {
     state.follows.delete(id);
     if (id === "artist") state.following = false;
-    if (isLoggedIn() && id !== "liked") state.hidden.add(id);
-    toast(id === "artist" ? "Unfollowed" : "Removed from view. Search to find it again.");
-  } else {
-    state.follows.add(id);
-    state.hidden.delete(id);
-    if (id === "artist") state.following = true;
-    toast(id === "artist" ? "Following" : "Added to Your Library");
+    state.hidden.add(id);
+    toast("Removed from view. Search to find it again.");
   }
   save();
   if (typeof render === "function") render();
@@ -280,13 +292,52 @@ toggleFollow = function (id) {
 
 const _injectFollowBtn = injectFollowBtn;
 injectFollowBtn = function () {
+  const actions = document.querySelector("#view .actions");
+  const route = state.route || {};
+  if (isLoggedIn() && actions && (route.name === "album" || route.name === "track") && !actions.querySelector("[data-follow]")) {
+    const b = document.createElement("button");
+    b.className = "follow";
+    b.type = "button";
+    b.dataset.follow = "album-" + route.id;
+    actions.appendChild(b);
+  }
   _injectFollowBtn();
   const b = document.querySelector("#view .actions [data-follow]");
   if (!b) return;
   const id = b.dataset.follow;
   const on = state.follows.has(id);
   const hidden = isHidden(id);
-  if (id === "artist") b.textContent = on ? "Following" : "Follow";
-  else if (isLoggedIn()) b.textContent = hidden ? "Add back" : (on ? "Don't show this" : "Add to library");
+  if (isLoggedIn()) b.textContent = hidden ? "Add back" : "Don't show this";
   else b.textContent = on ? "Remove from library" : "Add to library";
+};
+
+const _renderSearchHome = renderSearch;
+renderSearch = function () {
+  const q = (state.query || "").trim().toLowerCase();
+  if (!q) {
+    _renderSearchHome();
+    return;
+  }
+  const c = state.catalog;
+  const hit = songs().filter((s) => [s.title, s.character, ...(s.genres || []), ...(s.moods || []), s.description].join(" ").toLowerCase().includes(q));
+  const pls = mixes().filter((m) => m.name.toLowerCase().includes(q));
+  const artistHits = [];
+  if ((c.name || "").toLowerCase().includes(q)) artistHits.push({ id: "artist", name: c.name, sub: "Artist", img: c.avatar, go: "artist" });
+  (c.characters || []).forEach((ch) => {
+    if (ch.name.toLowerCase().includes(q) || ("this is " + ch.name).toLowerCase().includes(q)) {
+      artistHits.push({ id: "voice-" + ch.id, name: ch.name, sub: "Artist", img: ch.avatar, go: "playlist/voice-" + ch.id });
+    }
+  });
+  function restoreBtn(id) {
+    if (!isLoggedIn()) return "";
+    return `<button class="follow" data-follow="${id}" type="button" style="margin-top:8px">${isHidden(id) ? "Add back" : "Don't show this"}</button>`;
+  }
+  viewEl.innerHTML = `<section class="section"><h2>Songs</h2>${hit.length ? `<table class="tracks"><thead><tr><th>#</th><th>Title</th><th>Plays</th><th></th><th></th></tr></thead><tbody>${trackRows(hit)}</tbody></table>` : `<p class="empty">No songs matched.</p>`}</section>
+    <section class="section"><h2>Artists</h2><div class="cards">${artistHits.map((a) => `<article class="card artist" data-go="${a.go}">
+      <img src="${a.img}" alt=""><h3>${escapeHtml(a.name)}</h3><p>${escapeHtml(a.sub)}</p>${restoreBtn(a.id)}</article>`).join("") || `<p class="empty">No artists matched.</p>`}</div></section>
+    <section class="section"><h2>Albums</h2><div class="cards">${hit.map((s) => `<article class="card" data-go="album/${s.id}">
+      <img src="${s.cover}" alt=""><h3>${escapeHtml(s.title)}</h3><p>Single</p>${restoreBtn("album-" + s.id)}</article>`).join("") || `<p class="empty">No albums matched.</p>`}</div></section>
+    <section class="section"><h2>Playlists</h2><div class="cards">${pls.map((m) => `<article class="card" data-go="playlist/${m.id}">
+      ${m.cover ? `<img src="${m.cover}" alt="">` : `<div class="mix-ico ${m.ico || "green"}" style="width:100%;aspect-ratio:1;border-radius:8px;margin-bottom:10px">\u266a</div>`}
+      <h3>${escapeHtml(m.name)}</h3><p>${escapeHtml(m.desc)}</p>${restoreBtn(m.id)}</article>`).join("") || `<p class="empty">No playlists.</p>`}</div></section>`;
 };
