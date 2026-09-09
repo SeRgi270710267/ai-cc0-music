@@ -12,6 +12,23 @@ function ensureLiked() {
 function isLiked(id) {
   return ensureLiked().has(String(id || ""));
 }
+function heartSvg() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+}
+function paintLikeEl(el, on) {
+  el.classList.toggle("on", on);
+  el.setAttribute("aria-pressed", on ? "true" : "false");
+  if (el.id === "like-btn") {
+    el.innerHTML = heartSvg();
+    el.setAttribute("aria-label", on ? "Liked" : "Like");
+    return;
+  }
+  if (el.closest("#ctx")) {
+    el.textContent = on ? "Remove from Liked Songs" : "Add to Liked Songs";
+    return;
+  }
+  el.textContent = on ? "Liked" : "Like";
+}
 function paintHearts(id) {
   ensureLiked();
   const focus = id != null && id !== "" ? String(id) : "";
@@ -19,16 +36,14 @@ function paintHearts(id) {
     const target = el.id === "like-btn" ? (likeTargetId() || focus) : String(el.dataset.like || "");
     if (!target) {
       if (el.id === "like-btn") {
-        el.textContent = "♡";
+        el.innerHTML = heartSvg();
         el.classList.remove("on");
         el.setAttribute("aria-pressed", "false");
+        el.setAttribute("aria-label", "Like");
       }
       return;
     }
-    const on = isLiked(target);
-    el.textContent = on ? "♥" : "♡";
-    el.classList.toggle("on", on);
-    if (el.id === "like-btn") el.setAttribute("aria-pressed", on ? "true" : "false");
+    paintLikeEl(el, isLiked(target));
   });
 }
 
