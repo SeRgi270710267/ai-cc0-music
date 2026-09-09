@@ -2,7 +2,17 @@
 
 Spotify-style web player for the public [Mureka](https://www.mureka.ai/profile?user_id=146903878795265) catalog of **AI CC0 Music**.
 
-Live site: **https://sergi270710267.github.io/ai-cc0-music/**
+Live site (after Pages is enabled): **https://sergi270710267.github.io/ai-cc0-music/**
+
+## Turn the site on (one click)
+
+GitHub needs you to enable Pages once:
+
+1. Open [Settings → Pages](https://github.com/SeRgi270710267/ai-cc0-music/settings/pages).
+2. Under **Build and deployment → Source**, pick **GitHub Actions**.
+3. Open [Actions](https://github.com/SeRgi270710267/ai-cc0-music/actions) and re-run **Deploy GitHub Pages**.
+
+Or pick **Deploy from a branch**, branch `main`, folder `/ (root)`. That publishes without waiting on Actions.
 
 ## What it does
 
@@ -33,5 +43,5 @@ Or run the **Sync Mureka catalog** GitHub Action.
 ## Notes
 
 - GitHub Pages is static. Playback uses Mureka’s public MP3 URLs, not files stored in this repo.
-- Only tracks you have **published** on Mureka appear here.
+- Only tracks you have **published** on Mureka appear here. Publish more on Mureka and they show up on the next load.
 - This is an unofficial fan player, not affiliated with Spotify or Mureka.
