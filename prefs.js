@@ -68,7 +68,7 @@ function libEntries() {
   const items = [];
   if (f === "all" || f === "playlists") {
     if (!isHidden("liked")) {
-      items.push({ go: "liked", name: "Liked Songs", sub: `Playlist · ${[...state.liked].length} songs`, cls: "liked-ico", glyph: "♥", removeId: logged ? "liked" : null });
+      items.push({ go: "liked", name: "Liked Songs", sub: `Playlist \u00b7 ${[...state.liked].length} songs`, cls: "liked-ico", glyph: "\u2665", removeId: logged ? "liked" : null });
     }
     for (const m of mixes().filter((m) => m.id !== "liked")) {
       if (logged && !state.follows.has(m.id)) continue;
@@ -76,7 +76,7 @@ function libEntries() {
       items.push({ go: `playlist/${m.id}`, name: m.name, sub: m.desc, img: m.cover, cls: `mix-ico ${m.ico}`, removeId: m.id });
     }
     for (const p of state.playlists) {
-      items.push({ go: `playlist/${p.id}`, name: p.name, sub: `Playlist · ${(p.ids || []).length} songs`, cls: "mix-ico blue", removeId: p.id });
+      items.push({ go: `playlist/${p.id}`, name: p.name, sub: `Playlist \u00b7 ${(p.ids || []).length} songs`, cls: "mix-ico blue", removeId: p.id });
     }
   }
   if (f === "all" || f === "artists") {
@@ -103,11 +103,11 @@ function libEntries() {
 
 function libRow(e) {
   const x = e.removeId
-    ? `<button class="lib-x" data-libremove="${escapeHtml(e.removeId)}" type="button" title="Remove from library">×</button>`
+    ? `<button class="lib-x" data-libremove="${escapeHtml(e.removeId)}" type="button" title="Remove from library">\u00d7</button>`
     : "";
   return `<div class="lib-row">
     <button class="lib-item ${e.round ? "round" : ""}" data-go="${e.go}" type="button">
-      ${e.img ? `<img src="${e.img}" alt="">` : `<div class="${e.cls}">${e.glyph || "♪"}</div>`}
+      ${e.img ? `<img src="${e.img}" alt="">` : `<div class="${e.cls}">${e.glyph || "\u266a"}</div>`}
       <span><strong>${escapeHtml(e.name)}</strong><small>${escapeHtml(e.sub)}</small></span>
     </button>${x}
   </div>`;
@@ -129,10 +129,10 @@ function renderLibrary() {
   viewEl.innerHTML = `<section class="section">
     <h2>Your Library</h2>
     <p class="t-sub">${isLoggedIn()
-      ? "Only what you save or follow. Remove anything with ×. Home can still suggest the rest."
+      ? "Only what you save or follow. Remove anything with \u00d7. Home can still suggest the rest."
       : "Log in to choose which playlists and artists stay in Your Library."}</p>
     <div class="cards">${entries.map((e) => `<article class="card ${e.round ? "artist" : ""}" data-go="${e.go}">
-      ${e.img ? `<img src="${e.img}" alt="">` : `<div class="${e.cls}" style="width:100%;aspect-ratio:1;border-radius:8px;margin-bottom:10px">${e.glyph || "♪"}</div>`}
+      ${e.img ? `<img src="${e.img}" alt="">` : `<div class="${e.cls}" style="width:100%;aspect-ratio:1;border-radius:8px;margin-bottom:10px">${e.glyph || "\u266a"}</div>`}
       <h3>${escapeHtml(e.name)}</h3><p>${escapeHtml(e.sub)}</p>
     </article>`).join("") || `<p class="empty">Your Library is empty. Follow an artist or add a playlist.</p>`}</div>
   </section>`;
@@ -155,37 +155,49 @@ function renderHome() {
   ].filter(Boolean).slice(0, 8);
   const filter = state.homeFilter || "all";
   const showMixFeed = filter === "all" || filter === "music";
+  const showPlaylists = filter === "all" || filter === "music" || filter === "playlists";
   const showArtists = filter === "all" || filter === "music" || filter === "artists";
   const showAlbums = filter === "all" || filter === "music" || filter === "albums";
   const showVideos = filter === "all" || filter === "videos";
   const genreMixes = mx.filter((m) => m.kind === "genre" || m.kind === "mood");
-  const voiceMixes = mx.filter((m) => m.kind === "voice");
+  const playlistMixes = mx.filter((m) => m.kind === "playlist" || m.kind === "voice" || m.kind === "genre" || m.kind === "mood");
   const made = isLoggedIn() ? mx.filter((m) => !state.follows.has(m.id)).slice(0, 8) : mx.slice(0, 8);
   const savedMix = isLoggedIn() ? mx.filter((m) => state.follows.has(m.id)) : [];
-  const artistCards = artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true) + voiceMixes.map((m) => artistCard(m.name, m.desc, m.cover, `playlist/${m.id}`, m.ids, true)).join("");
+  const playlistCards = playlistMixes.map((m) => mixCard(Object.assign({}, m, { round: false }))).join("")
+    + state.playlists.map((p) => mixCard({ id: p.id, name: p.name, desc: "Playlist", ids: p.ids || [], ico: "blue" })).join("");
+  const artistCards = artistCard(c.name, "Artist", c.avatar, "artist", songs().map((s) => s.id), true)
+    + (c.characters || []).map((ch) => artistCard(
+      ch.name,
+      "Artist",
+      ch.avatar,
+      "playlist/voice-" + ch.id,
+      songs().filter((s) => String(s.character_id) === String(ch.id)).map((s) => s.id),
+      true
+    )).join("");
   viewEl.innerHTML = `<div class="home-wrap">
     <h1 class="greeting">${greeting()}</h1>
     <div class="home-filters">
       <button class="chip-btn ${filter === "all" ? "on" : ""}" data-homefilter="all" type="button">All</button>
       <button class="chip-btn ${filter === "music" ? "on" : ""}" data-homefilter="music" type="button">Music</button>
-      <button class="chip-btn ${filter === "videos" ? "on" : ""}" data-homefilter="videos" type="button">Videos</button>
+      <button class="chip-btn ${filter === "playlists" ? "on" : ""}" data-homefilter="playlists" type="button">Playlists</button>
       <button class="chip-btn ${filter === "artists" ? "on" : ""}" data-homefilter="artists" type="button">Artists</button>
       <button class="chip-btn ${filter === "albums" ? "on" : ""}" data-homefilter="albums" type="button">Albums</button>
+      <button class="chip-btn ${filter === "videos" ? "on" : ""}" data-homefilter="videos" type="button">Videos</button>
     </div>
     ${showMixFeed ? `<div class="shortcuts">${tiles.map((t) => `<button class="shortcut" data-go="${t.go}" type="button">
-      ${t.liked ? `<div class="liked-ico">♥</div>` : t.img ? `<img src="${t.img}" alt="">` : `<div class="mix-ico ${t.ico || "green"}">♪</div>`}
+      ${t.liked ? `<div class="liked-ico">\u2665</div>` : t.img ? `<img src="${t.img}" alt="">` : `<div class="mix-ico ${t.ico || "green"}">\u266a</div>`}
       <span>${escapeHtml(t.title)}</span>
       <span class="hover-play" data-play-list="${(t.play || []).join(",")}">${PLAY}</span>
     </button>`).join("")}</div>` : ""}
     ${showMixFeed ? homeRow("Jump back in", jump.map(cardSong).join("")) : ""}
-    ${showMixFeed && savedMix.length ? homeRow("Your playlists", savedMix.map(mixCard).join("")) : ""}
-    ${showMixFeed && !homeOff("made") ? homeRow("Made for you", made.map(mixCard).join(""), `<a class="see" data-go="library" href="#/library">Library</a>`) : ""}
-    ${showMixFeed && !homeOff("mixes") && genreMixes.length ? homeRow("Your top mixes", genreMixes.map(mixCard).join("")) : ""}
+    ${showMixFeed && savedMix.length ? homeRow("Your playlists", savedMix.map((m) => mixCard(Object.assign({}, m, { round: false }))).join("")) : ""}
+    ${showPlaylists && (filter === "playlists" || !homeOff("made")) ? homeRow(filter === "playlists" ? "Playlists" : "Made for you", filter === "playlists" ? playlistCards : made.map((m) => mixCard(Object.assign({}, m, { round: false }))).join(""), filter === "playlists" ? "" : `<a class="see" data-go="library" href="#/library">Library</a>`) : ""}
+    ${showMixFeed && !homeOff("mixes") && genreMixes.length ? homeRow("Your top mixes", genreMixes.map((m) => mixCard(Object.assign({}, m, { round: false }))).join("")) : ""}
     ${showArtists && (filter === "artists" || !homeOff("artists")) ? homeRow(filter === "artists" ? "Artists" : "Popular artists", artistCards) : ""}
     ${showAlbums && (filter === "albums" || !homeOff("releases")) ? homeRow(filter === "albums" ? "Albums" : "New releases", songs().map(cardSong).join(""), filter === "albums" ? "" : `<a class="see" data-go="artist" href="#/artist">Show all</a>`) : ""}
     ${showVideos && (filter === "videos" || !homeOff("videos")) && (c.videos || []).length ? homeRow("Music videos", c.videos.map((v) => `<article class="card video-card">
       <video src="${v.url}" poster="${v.cover}" controls preload="metadata"></video>
-      <h3>${escapeHtml(v.title)}</h3><p>Video · ${fmt(v.duration_ms)}</p></article>`).join("")) : ""}
+      <h3>${escapeHtml(v.title)}</h3><p>Video \u00b7 ${fmt(v.duration_ms)}</p></article>`).join("")) : ""}
   </div>`;
 }
 
@@ -212,7 +224,7 @@ function paintPrefs() {
       <input type="checkbox" data-homeoff="${id}" ${homeOff(id) ? "" : "checked"}>
       <span>${label}</span>
     </label>`).join("")}
-    <p class="acct-lead">Your Library only lists Liked Songs, playlists you create, and artists or default mixes you add. Use × in the sidebar to remove them.</p>`;
+    <p class="acct-lead">Your Library only lists Liked Songs, playlists you create, and artists or default mixes you add. Use \u00d7 in the sidebar to remove them.</p>`;
 }
 
 const _openAcct = openAcct;
