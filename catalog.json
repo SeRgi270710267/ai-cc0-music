@@ -3,7 +3,7 @@
   "name": "AI CC0 Music",
   "stage_name": "AI CC0 Music 146903878795265",
   "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
-  "likes": 466,
+  "likes": 467,
   "country": "SE",
   "mureka_url": "https://www.mureka.ai/profile?user_id=146903878795265",
   "license": "CC0",
@@ -16,8 +16,15 @@
       "cover": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260730/6e6ab87c-acdb-40cb-9396-69a8f83e162b.jpg",
       "share_key": "DbpJzwoSgu2DSEYQVdMH8a",
       "mureka_url": "https://www.mureka.ai/song-detail/152048979017729",
-      "genres": ["latin", "disco"],
-      "moods": ["mysterious", "dark", "romantic"],
+      "genres": [
+        "latin",
+        "disco"
+      ],
+      "moods": [
+        "mysterious",
+        "dark",
+        "romantic"
+      ],
       "description": "hard rock, aggressive, electric guitar, driving 4/4 backbeat, a male vocalist with a powerful, gravelly baritone and raspy texture, delivering lines with high-energy rock projection and charismatic emotional depth.",
       "model": "V9",
       "published_at": 1785397509,
@@ -28,34 +35,146 @@
       "character": "Joanny",
       "character_id": 147487243501569,
       "lyrics": [
-        {"t": null, "text": "[Intro]", "section": true},
-        {"t": null, "text": "[Verse 1]", "section": true},
-        {"t": 15640, "text": "Je suis comme ça", "section": false},
-        {"t": 17440, "text": "J’veux pas m’changer", "section": false},
-        {"t": 19360, "text": "Une pierre qui va", "section": false},
-        {"t": 20800, "text": "Un ange en danger", "section": false},
-        {"t": 22560, "text": "J’fais de la corde raide sur la vie", "section": false},
-        {"t": 26840, "text": "Un bras de fer avec l’ennui", "section": false},
-        {"t": 30600, "text": "Le mot tranquillité m’est étranger", "section": false},
-        {"t": 38120, "text": "Je vis en sursis d’un ange en danger", "section": false},
-        {"t": null, "text": "[Verse 2]", "section": true},
-        {"t": 47880, "text": "J’suis pas du genre", "section": false},
-        {"t": 49640, "text": "Micro, bravo, dodo", "section": false},
-        {"t": 52680, "text": "J’aime bien terminer tard mon numéro", "section": false},
-        {"t": 56400, "text": "Je vais jusqu’au bout de la nuit", "section": false},
-        {"t": 60160, "text": "Parfois jusqu’au bout de l’ennui", "section": false},
-        {"t": 64360, "text": "Et quand j’veux m’engueuler", "section": false},
-        {"t": 68320, "text": "Moi j’me fais marrer", "section": false},
-        {"t": null, "text": "[Verse 3]", "section": true},
-        {"t": 73080, "text": "Hier j’ai pris deux cent trente", "section": false},
-        {"t": 76120, "text": "J’ai souri au radar", "section": false},
-        {"t": 78480, "text": "Les flics m’ont dit", "section": false},
-        {"t": 81280, "text": "On dirait que tu veux te tuer", "section": false},
-        {"t": 84520, "text": "Moi ça m’a fait marrer", "section": false},
-        {"t": 88280, "text": "Le doc m’a dit", "section": false},
-        {"t": 90640, "text": "Un jour tu vas craquer", "section": false},
-        {"t": 95800, "text": "Moi ça m’a fait marrerUne pierre qui va", "section": false},
-        {"t": 99680, "text": "Un ange en danger", "section": false}
+        {
+          "t": null,
+          "text": "[Intro]",
+          "section": true
+        },
+        {
+          "t": null,
+          "text": "[Verse 1]",
+          "section": true
+        },
+        {
+          "t": 15640,
+          "text": "Je suis comme ça",
+          "section": false
+        },
+        {
+          "t": 17440,
+          "text": "J’veux pas m’changer",
+          "section": false
+        },
+        {
+          "t": 19360,
+          "text": "Une pierre qui va",
+          "section": false
+        },
+        {
+          "t": 20800,
+          "text": "Un ange en danger",
+          "section": false
+        },
+        {
+          "t": 22560,
+          "text": "J’fais de la corde raide sur la vie",
+          "section": false
+        },
+        {
+          "t": 26840,
+          "text": "Un bras de fer avec l’ennui",
+          "section": false
+        },
+        {
+          "t": 30600,
+          "text": "Le mot tranquillité m’est étranger",
+          "section": false
+        },
+        {
+          "t": 38120,
+          "text": "Je vis en sursis d’un ange en danger",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Verse 2]",
+          "section": true
+        },
+        {
+          "t": 47880,
+          "text": "J’suis pas du genre",
+          "section": false
+        },
+        {
+          "t": 49640,
+          "text": "Micro, bravo, dodo",
+          "section": false
+        },
+        {
+          "t": 52680,
+          "text": "J’aime bien terminer tard mon numéro",
+          "section": false
+        },
+        {
+          "t": 56400,
+          "text": "Je vais jusqu’au bout de la nuit",
+          "section": false
+        },
+        {
+          "t": 60160,
+          "text": "Parfois jusqu’au bout de l’ennui",
+          "section": false
+        },
+        {
+          "t": 64360,
+          "text": "Et quand j’veux m’engueuler",
+          "section": false
+        },
+        {
+          "t": 68320,
+          "text": "Moi j’me fais marrer",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Verse 3]",
+          "section": true
+        },
+        {
+          "t": 73080,
+          "text": "Hier j’ai pris deux cent trente",
+          "section": false
+        },
+        {
+          "t": 76120,
+          "text": "J’ai souri au radar",
+          "section": false
+        },
+        {
+          "t": 78480,
+          "text": "Les flics m’ont dit",
+          "section": false
+        },
+        {
+          "t": 81280,
+          "text": "On dirait que tu veux te tuer",
+          "section": false
+        },
+        {
+          "t": 84520,
+          "text": "Moi ça m’a fait marrer",
+          "section": false
+        },
+        {
+          "t": 88280,
+          "text": "Le doc m’a dit",
+          "section": false
+        },
+        {
+          "t": 90640,
+          "text": "Un jour tu vas craquer",
+          "section": false
+        },
+        {
+          "t": 95800,
+          "text": "Moi ça m’a fait marrerUne pierre qui va",
+          "section": false
+        },
+        {
+          "t": 99680,
+          "text": "Un ange en danger",
+          "section": false
+        }
       ]
     },
     {
@@ -66,8 +185,15 @@
       "cover": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260729/8ed5fdb8-22c5-40a0-b118-83409add176a.jpg",
       "share_key": "6d8SpZoNnr2v4fdNBWh4if",
       "mureka_url": "https://www.mureka.ai/song-detail/152142547779585",
-      "genres": ["rock", "experimental"],
-      "moods": ["inspired", "majestic", "relaxed"],
+      "genres": [
+        "rock",
+        "experimental"
+      ],
+      "moods": [
+        "inspired",
+        "majestic",
+        "relaxed"
+      ],
       "description": "americana, intimate, acoustic guitar, travis picking, a male vocalist with a deep, mature baritone featuring a rich southern drawl, characterized by a wide late-career vibrato, yodel-like breaks, and natural emotional cracks that convey a seasoned, storytelling intimacy.",
       "model": "V9",
       "published_at": 1785320123,
@@ -78,48 +204,216 @@
       "character": "Sivle",
       "character_id": 148907157946369,
       "lyrics": [
-        {"t": null, "text": "[Intro]", "section": true},
-        {"t": null, "text": "[Verse 1]", "section": true},
-        {"t": 6040, "text": "Well I’ve seen her from the stages and the shadows", "section": false},
-        {"t": 12720, "text": "From the bright lights and the quiet valley floor", "section": false},
-        {"t": 17480, "text": "She’s been the only home I’ve ever known", "section": false},
-        {"t": 23320, "text": "Even when I had to walk through a different door", "section": false},
-        {"t": null, "text": "[Verse 2]", "section": true},
-        {"t": 28760, "text": "I’ve watched her change through every decade", "section": false},
-        {"t": 33800, "text": "Seen the good rise up and the dark roll in", "section": false},
-        {"t": 39480, "text": "But something in her heart keeps fighting back", "section": false},
-        {"t": 44480, "text": "Like a song that won’t forget how to begin", "section": false},
-        {"t": null, "text": "[Chorus]", "section": true},
-        {"t": 52840, "text": "America", "section": false},
-        {"t": 55160, "text": "You’re still the one I’m singin’ for", "section": false},
-        {"t": 60480, "text": "Through the silence and the long hard years", "section": false},
-        {"t": 66080, "text": "You’re the reason I keep holdin’ on", "section": false},
-        {"t": null, "text": "[Verse 3]", "section": true},
-        {"t": 71800, "text": "I gave up the name the world once knew", "section": false},
-        {"t": 79360, "text": "I gave up the crowd and the open road", "section": false},
-        {"t": 84000, "text": "But I never gave up on the land that raised me", "section": false},
-        {"t": 90000, "text": "Or the promise buried deep inside her soul", "section": false},
-        {"t": null, "text": "[Verse 4]", "section": true},
-        {"t": 93400, "text": "Some nights I sit and wonder if she hears me", "section": false},
-        {"t": 100640, "text": "If the quiet prayers of one old man still count", "section": false},
-        {"t": 106120, "text": "But I believe she’s stronger than the storm", "section": false},
-        {"t": 111120, "text": "And the best of her is still waitin’ to come out", "section": false},
-        {"t": null, "text": "[Chorus]", "section": true},
-        {"t": 119120, "text": "America", "section": false},
-        {"t": 121760, "text": "You’re still the one I’m singin’ for", "section": false},
-        {"t": 127080, "text": "Through the silence and the long hard years", "section": false},
-        {"t": 132680, "text": "You’re the reason I keep holdin’ on", "section": false},
-        {"t": null, "text": "[Bridge]", "section": true},
-        {"t": 140440, "text": "Lord I’ve seen her bruised and I’ve seen her shining", "section": false},
-        {"t": 145400, "text": "I’ve seen her nearly lose her way", "section": false},
-        {"t": 151440, "text": "But as long as there’s a voice left standin’", "section": false},
-        {"t": 156680, "text": "I’ll be here to sing her through the day", "section": false},
-        {"t": null, "text": "[Final Chorus]", "section": true},
-        {"t": 162520, "text": "Yeah America", "section": false},
-        {"t": 169840, "text": "You’re still the one I’m singin’ for", "section": false},
-        {"t": 174960, "text": "Ain’t no stage too small, no night too long", "section": false},
-        {"t": 180520, "text": "I’ll keep this old heart open for youUh-huh…", "section": false},
-        {"t": 189800, "text": "God bless America", "section": false}
+        {
+          "t": null,
+          "text": "[Intro]",
+          "section": true
+        },
+        {
+          "t": null,
+          "text": "[Verse 1]",
+          "section": true
+        },
+        {
+          "t": 6040,
+          "text": "Well I’ve seen her from the stages and the shadows",
+          "section": false
+        },
+        {
+          "t": 12720,
+          "text": "From the bright lights and the quiet valley floor",
+          "section": false
+        },
+        {
+          "t": 17480,
+          "text": "She’s been the only home I’ve ever known",
+          "section": false
+        },
+        {
+          "t": 23320,
+          "text": "Even when I had to walk through a different door",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Verse 2]",
+          "section": true
+        },
+        {
+          "t": 28760,
+          "text": "I’ve watched her change through every decade",
+          "section": false
+        },
+        {
+          "t": 33800,
+          "text": "Seen the good rise up and the dark roll in",
+          "section": false
+        },
+        {
+          "t": 39480,
+          "text": "But something in her heart keeps fighting back",
+          "section": false
+        },
+        {
+          "t": 44480,
+          "text": "Like a song that won’t forget how to begin",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Chorus]",
+          "section": true
+        },
+        {
+          "t": 52840,
+          "text": "America",
+          "section": false
+        },
+        {
+          "t": 55160,
+          "text": "You’re still the one I’m singin’ for",
+          "section": false
+        },
+        {
+          "t": 60480,
+          "text": "Through the silence and the long hard years",
+          "section": false
+        },
+        {
+          "t": 66080,
+          "text": "You’re the reason I keep holdin’ on",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Verse 3]",
+          "section": true
+        },
+        {
+          "t": 71800,
+          "text": "I gave up the name the world once knew",
+          "section": false
+        },
+        {
+          "t": 79360,
+          "text": "I gave up the crowd and the open road",
+          "section": false
+        },
+        {
+          "t": 84000,
+          "text": "But I never gave up on the land that raised me",
+          "section": false
+        },
+        {
+          "t": 90000,
+          "text": "Or the promise buried deep inside her soul",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Verse 4]",
+          "section": true
+        },
+        {
+          "t": 93400,
+          "text": "Some nights I sit and wonder if she hears me",
+          "section": false
+        },
+        {
+          "t": 100640,
+          "text": "If the quiet prayers of one old man still count",
+          "section": false
+        },
+        {
+          "t": 106120,
+          "text": "But I believe she’s stronger than the storm",
+          "section": false
+        },
+        {
+          "t": 111120,
+          "text": "And the best of her is still waitin’ to come out",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Chorus]",
+          "section": true
+        },
+        {
+          "t": 119120,
+          "text": "America",
+          "section": false
+        },
+        {
+          "t": 121760,
+          "text": "You’re still the one I’m singin’ for",
+          "section": false
+        },
+        {
+          "t": 127080,
+          "text": "Through the silence and the long hard years",
+          "section": false
+        },
+        {
+          "t": 132680,
+          "text": "You’re the reason I keep holdin’ on",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Bridge]",
+          "section": true
+        },
+        {
+          "t": 140440,
+          "text": "Lord I’ve seen her bruised and I’ve seen her shining",
+          "section": false
+        },
+        {
+          "t": 145400,
+          "text": "I’ve seen her nearly lose her way",
+          "section": false
+        },
+        {
+          "t": 151440,
+          "text": "But as long as there’s a voice left standin’",
+          "section": false
+        },
+        {
+          "t": 156680,
+          "text": "I’ll be here to sing her through the day",
+          "section": false
+        },
+        {
+          "t": null,
+          "text": "[Final Chorus]",
+          "section": true
+        },
+        {
+          "t": 162520,
+          "text": "Yeah America",
+          "section": false
+        },
+        {
+          "t": 169840,
+          "text": "You’re still the one I’m singin’ for",
+          "section": false
+        },
+        {
+          "t": 174960,
+          "text": "Ain’t no stage too small, no night too long",
+          "section": false
+        },
+        {
+          "t": 180520,
+          "text": "I’ll keep this old heart open for youUh-huh…",
+          "section": false
+        },
+        {
+          "t": 189800,
+          "text": "God bless America",
+          "section": false
+        }
       ]
     }
   ],
@@ -138,15 +432,23 @@
     {
       "id": 147487243501569,
       "name": "Joanny",
-      "tags": ["Male", "Roi"],
+      "tags": [
+        "Male",
+        "Roi"
+      ],
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/f7015810-dbef-49f9-b283-8241374881ca.jpg"
     },
     {
       "id": 148907157946369,
       "name": "Sivle",
-      "tags": ["Male", "Warm", "Powerful", "Elvis"],
+      "tags": [
+        "Male",
+        "Warm",
+        "Powerful",
+        "Elvis"
+      ],
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/1c8e4751-6ac6-411e-b86b-2b2b91189c1d.jpg"
     }
   ],
-  "synced_at": "2026-09-09T14:17:44Z"
+  "synced_at": "2026-09-10T11:00:19Z"
 }
