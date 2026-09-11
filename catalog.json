@@ -3,7 +3,7 @@
   "name": "AI CC0 Music",
   "stage_name": "AI CC0 Music 146903878795265",
   "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
-  "likes": 467,
+  "likes": 487,
   "country": "SE",
   "mureka_url": "https://www.mureka.ai/profile?user_id=146903878795265",
   "license": "CC0",
@@ -29,7 +29,7 @@
       "model": "V9",
       "published_at": 1785397509,
       "generated_at": 1785180998,
-      "play_count": 19,
+      "play_count": 20,
       "share_count": 1,
       "fav_count": 1,
       "character": "Joanny",
@@ -450,5 +450,5 @@
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/1c8e4751-6ac6-411e-b86b-2b2b91189c1d.jpg"
     }
   ],
-  "synced_at": "2026-09-10T11:00:19Z"
+  "synced_at": "2026-09-11T10:58:55Z"
 }
