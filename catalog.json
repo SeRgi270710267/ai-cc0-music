@@ -3,8 +3,8 @@
   "name": "AI CC0 Music",
   "stage_name": "AI CC0 Music 146903878795265",
   "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
-  "likes": 576,
-  "country": "SE",
+  "likes": 581,
+  "country": null,
   "mureka_url": "https://www.mureka.ai/profile?user_id=146903878795265",
   "license": "CC0",
   "songs": [
@@ -450,5 +450,5 @@
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/1c8e4751-6ac6-411e-b86b-2b2b91189c1d.jpg"
     }
   ],
-  "synced_at": "2026-09-16T11:15:23Z"
+  "synced_at": "2026-09-17T11:23:33Z"
 }
