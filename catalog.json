@@ -1,9 +1,9 @@
 {
   "user_id": "146903878795265",
-  "name": "AI CC0 Music",
-  "stage_name": "AI CC0 Music 146903878795265",
+  "name": "SеРgИ146903878795265",
+  "stage_name": "SеРgИ146903878795265",
   "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
-  "likes": 603,
+  "likes": 607,
   "country": null,
   "mureka_url": "https://www.mureka.ai/profile?user_id=146903878795265",
   "license": "CC0",
@@ -29,7 +29,7 @@
       "model": "V9",
       "published_at": 1785397509,
       "generated_at": 1785180998,
-      "play_count": 21,
+      "play_count": 27,
       "share_count": 1,
       "fav_count": 1,
       "character": "Joanny",
@@ -198,7 +198,7 @@
       "model": "V9",
       "published_at": 1785320123,
       "generated_at": 1785225615,
-      "play_count": 26,
+      "play_count": 27,
       "share_count": 4,
       "fav_count": 1,
       "character": "Sivle",
@@ -417,17 +417,7 @@
       ]
     }
   ],
-  "videos": [
-    {
-      "id": "149148190113793",
-      "title": "Le Rock Encore",
-      "url": "https://static-cos.mureka.ai/cos-prod/mureka/lyrics_video/149148190113793/a7cfb4dd-a58b-4db5-9fbb-45b5f069b321.mp4",
-      "cover": "https://static-cos.mureka.ai/cos-prod/mureka/lyrics_video/149148190113793/d8f6324d-01e8-4016-8082-c857f7ee4d9a_cover.jpg",
-      "duration_ms": 46698,
-      "share_key": "U5c8qgffrMDEBid2uYPoa9",
-      "song_id": "147491244736514"
-    }
-  ],
+  "videos": [],
   "characters": [
     {
       "id": 147487243501569,
@@ -450,5 +440,5 @@
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/1c8e4751-6ac6-411e-b86b-2b2b91189c1d.jpg"
     }
   ],
-  "synced_at": "2026-09-21T12:30:51Z"
+  "synced_at": "2026-09-22T11:19:19Z"
 }
