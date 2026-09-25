@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ev-cc0-sessions-vol1",
+    "title": "CC0 Sessions · Vol. 1",
+    "type": "album",
+    "date": "2026-10-17",
+    "time": "18:00 CEST",
+    "cover": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260730/6e6ab87c-acdb-40cb-9396-69a8f83e162b.jpg",
+    "description": "Example upcoming drop — a short CC0 album night with Joanny & Sivle voices. Replace when a real release is scheduled.",
+    "link": "https://www.mureka.ai/profile?user_id=146903878795265",
+    "status": "upcoming"
+  },
+  {
+    "id": "ev-neon-single",
+    "title": "Neon Afterglow (single)",
+    "type": "single",
+    "date": "2026-11-07T16:00:00+01:00",
+    "time": "16:00 CET",
+    "cover": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260729/8ed5fdb8-22c5-40a0-b118-83409add176a.jpg",
+    "description": "Example placeholder single — atmospheric AI CC0 Music aesthetic. Edit title, date, and link in events.json.",
+    "link": "https://www.mureka.ai/profile?user_id=146903878795265",
+    "status": "upcoming"
+  },
+  {
+    "id": "ev-listening-room",
+    "title": "Listening Room · Online",
+    "type": "show",
+    "date": "2026-12-05",
+    "time": "20:00 CET · livestream",
+    "cover": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
+    "description": "Example community listening session for public CC0 tracks. Sample event only — not a confirmed show.",
+    "link": "https://www.mureka.ai/profile?user_id=146903878795265",
+    "status": "upcoming"
+  }
+]

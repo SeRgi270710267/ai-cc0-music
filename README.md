@@ -10,7 +10,7 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 
 1. Open this repo in Grok Build: `SeRgi270710267/ai-cc0-music` on `main`.
 2. Site is GitHub Pages, static, hash-routed SPA. Do not add a server.
-3. After JS/CSS edits, bump the `?v=likeN` query on scripts/styles in `index.html` so Pages CDN does not serve stale files.
+3. After JS/CSS edits, bump the `?v=` query on **all** scripts/styles in `index.html` so Pages CDN does not serve stale files (current: `?v=events1`).
 4. Hard-refresh the live site with Ctrl+F5 after a Pages deploy.
 5. Anonymous account data lives in **this browser** (`localStorage` key `aicc0.vault`). It is not in git. Move devices with Download backup / Import backup.
 
@@ -23,7 +23,8 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 
 ## What works now
 
-- Spotify-like shell: sidebar, Home feed, Search, Library, artist page, album/track pages, bottom player, lyrics, queue.
+- Spotify-like shell: sidebar, Home feed, Search, **Events**, Library, artist page, album/track pages, bottom player, lyrics, queue.
+- **Events** (`#/events`): static schedule from `events.json` (album/single/show drops). Edit the JSON and push — no backend.
 - Catalog: artist **AI CC0 Music**; tracks **Un Ange en Danger**, **For America**; voices **Joanny**, **Sivle**; video **Le Rock Encore**; CC0.
 - Home chips: All, Music, Playlists, Artists, Albums, Videos.
 - **This Is Joanny / This Is Sivle** are playlists. **Joanny / Sivle** are artists. **AI CC0 Music** is the artist.
@@ -35,7 +36,7 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 ## Script load order (`index.html`)
 
 ```
-core.js → account.js → views.js → boot.js → home-boot.js → prefs.js → like-fix.js
+core.js → account.js → views.js → boot.js → home-boot.js → prefs.js → like-fix.js → events.js
 ```
 
 | File | Role |
@@ -47,6 +48,8 @@ core.js → account.js → views.js → boot.js → home-boot.js → prefs.js �
 | `home-boot.js` | Home filter chips |
 | `prefs.js` | Logged-in Home/library, hide-from-Home, Search restore |
 | `like-fix.js` | Like UI refresh, Liked Songs in library |
+| `events.js` / `events.css` | Events page overlay (`#/events`), schedule UI |
+| `events.json` | Public upcoming/released schedule (repo root) |
 | `styles.css` / `fix.css` / `account.css` | Layout, spacing, opaque player, like pills |
 | `catalog.json` | Published snapshot |
 | `scripts/sync_catalog.py` | Rebuild snapshot from Mureka |
@@ -55,7 +58,25 @@ Overlays in `prefs.js` and `like-fix.js` override functions from earlier files. 
 
 ## Hash routes
 
-`#/` Home, `#/search`, `#/library`, `#/artist`, `#/liked`, `#/playlist/:id`, `#/album/:id`.
+`#/` Home, `#/search`, `#/events`, `#/library`, `#/artist`, `#/liked`, `#/playlist/:id`, `#/album/:id`.
+
+## Add an event
+
+Edit `events.json` at the repo root (array of objects). Each item:
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `id` | yes | Stable string id |
+| `title` | yes | Display title |
+| `type` | yes | `album` \| `single` \| `show` \| `other` |
+| `date` | yes | ISO date (`YYYY-MM-DD`) or datetime |
+| `time` | no | Free-text time / timezone note |
+| `cover` | no | Image URL |
+| `description` | no | Short blurb |
+| `link` | no | Mureka / share URL |
+| `status` | yes | `upcoming` \| `released` |
+
+Commit and push to `main`. Pages deploys the updated schedule. Personal/private notes can later use vault `aicc0.vault`; the public schedule stays in the repo.
 
 ## Refresh the catalog snapshot
 
