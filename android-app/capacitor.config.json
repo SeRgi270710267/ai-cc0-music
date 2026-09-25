@@ -1,0 +1,21 @@
+{
+  "appId": "com.aicc0music.player",
+  "appName": "AI CC0 Music",
+  "webDir": "www",
+  "server": {
+    "url": "https://sergi270710267.github.io/ai-cc0-music/",
+    "cleartext": false,
+    "allowNavigation": [
+      "sergi270710267.github.io",
+      "mureka.ai",
+      "*.mureka.ai",
+      "static-cos.mureka.ai",
+      "*.static-cos.mureka.ai"
+    ]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#0b0b0f",
+    "webContentsDebuggingEnabled": false
+  }
+}
