@@ -13,7 +13,7 @@
 
   function loadEvents() {
     if (state.events) return Promise.resolve(state.events);
-    return fetch("./events.json?v=events2")
+    return fetch("./events.json?v=events3")
       .then(function (r) {
         if (!r.ok) throw new Error("events.json " + r.status);
         return r.json();
@@ -43,13 +43,6 @@
     return d.toLocaleString(undefined, { month: "short" });
   }
 
-  function escapeAttr(s) {
-    return String(s || "")
-      .replace(/&/g, "&")
-      .replace(/"/g, """)
-      .replace(/</g, "<");
-  }
-
   function eventMatchesFilter(ev, f) {
     if (!f || f === "all") return true;
     if (f === "upcoming" || f === "released") return (ev.status || "upcoming") === f;
@@ -68,7 +61,7 @@
 
   function coverHtml(ev) {
     if (ev.cover) {
-      return `<img class="event-cover" src="${escapeAttr(ev.cover)}" alt="">`;
+      return `<img class="event-cover" src="${escapeHtml(ev.cover)}" alt="">`;
     }
     const letter = (ev.title || "?").trim().charAt(0).toUpperCase() || "?";
     return `<div class="event-cover ph" aria-hidden="true">${escapeHtml(letter)}</div>`;
@@ -83,10 +76,10 @@
     const yr = d ? String(d.getFullYear()) : "";
     const timeNote = ev.time || "";
     const link = ev.link
-      ? `<a class="event-link" href="${escapeAttr(ev.link)}" target="_blank" rel="noopener">Open</a>`
+      ? `<a class="event-link" href="${escapeHtml(ev.link)}" target="_blank" rel="noopener">Open</a>`
       : "";
-    return `<article class="event-card" data-event-id="${escapeAttr(ev.id || "")}">
-      <div class="event-date" aria-label="${escapeAttr(d ? d.toDateString() : "Date TBA")}">
+    return `<article class="event-card" data-event-id="${escapeHtml(ev.id || "")}">
+      <div class="event-date" aria-label="${escapeHtml(d ? d.toDateString() : "Date TBA")}">
         <span class="mon">${escapeHtml(mon)}</span>
         <span class="day">${escapeHtml(day)}</span>
         <span class="yr">${escapeHtml(yr)}</span>
