@@ -1,0 +1,49 @@
+# Optional: build an unsigned or CI-signed debug/release APK.
+# Release signing secrets are NOT stored in this repo; local/agent builds
+# use a private keystore. This workflow produces a release APK unsigned
+# (or use GitHub Actions secrets if you add them later).
+name: Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android-app/**'
+      - '.github/workflows/android-apk.yml'
+    branches: [main, 'feat/capacitor-android']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install SDK packages
+        run: |
+          sdkmanager --install "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+      - name: npm + cap sync
+        run: |
+          npm ci || npm install
+          npx cap sync android
+      - name: Assemble release (unsigned if no keystore)
+        working-directory: android-app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease || ./gradlew assembleDebug
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-cc0-music-apk
+          path: |
+            android-app/android/app/build/outputs/apk/**/*.apk
