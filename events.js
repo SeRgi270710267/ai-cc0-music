@@ -13,7 +13,7 @@
 
   function loadEvents() {
     if (state.events) return Promise.resolve(state.events);
-    return fetch("./events.json?v=events1")
+    return fetch("./events.json?v=events2")
       .then(function (r) {
         if (!r.ok) throw new Error("events.json " + r.status);
         return r.json();
@@ -45,9 +45,9 @@
 
   function escapeAttr(s) {
     return String(s || "")
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;");
+      .replace(/&/g, "&")
+      .replace(/"/g, """)
+      .replace(/</g, "<");
   }
 
   function eventMatchesFilter(ev, f) {
@@ -132,7 +132,7 @@
         <div>
           <div class="kicker">Schedule</div>
           <h1>Events</h1>
-          <div class="meta">${upcomingCount} upcoming · album drops, singles &amp; listening rooms · edit <code>events.json</code></div>
+          <div class="meta">${upcomingCount} upcoming · album drops, singles & listening rooms · edit <code>events.json</code></div>
         </div>
       </section>
       <div class="events-toolbar">${chips}</div>
