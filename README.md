@@ -4,13 +4,13 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 
 - **Repo:** https://github.com/SeRgi270710267/ai-cc0-music
 - **Live:** https://sergi270710267.github.io/ai-cc0-music/
-- **Branch:** `main` (HEAD at last save: Home dismiss for playlists, albums, artists)
+- **Branch:** `main` (HEAD at last save: mobile topbar + Events layout)
 
 ## Resume in Grok Build (other PC)
 
 1. Open this repo in Grok Build: `SeRgi270710267/ai-cc0-music` on `main`.
 2. Site is GitHub Pages, static, hash-routed SPA. Do not add a server.
-3. After JS/CSS edits, bump the `?v=` query on **all** scripts/styles in `index.html` so Pages CDN does not serve stale files (current: `?v=events1`).
+3. After JS/CSS edits, bump the `?v=` query on **all** scripts/styles in `index.html` so Pages CDN does not serve stale files (current: `?v=events2`).
 4. Hard-refresh the live site with Ctrl+F5 after a Pages deploy.
 5. Anonymous account data lives in **this browser** (`localStorage` key `aicc0.vault`). It is not in git. Move devices with Download backup / Import backup.
 
@@ -25,6 +25,7 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 
 - Spotify-like shell: sidebar, Home feed, Search, **Events**, Library, artist page, album/track pages, bottom player, lyrics, queue.
 - **Events** (`#/events`): static schedule from `events.json` (album/single/show drops). Edit the JSON and push — no backend.
+- Mobile: `mobile.css` overlay clamps shared topbar + Events hero/cards on narrow phones (~412px); no horizontal page scroll. Cache `?v=events2`.
 - Catalog: artist **AI CC0 Music**; tracks **Un Ange en Danger**, **For America**; voices **Joanny**, **Sivle**; video **Le Rock Encore**; CC0.
 - Home chips: All, Music, Playlists, Artists, Albums, Videos.
 - **This Is Joanny / This Is Sivle** are playlists. **Joanny / Sivle** are artists. **AI CC0 Music** is the artist.
@@ -50,7 +51,7 @@ core.js → account.js → views.js → boot.js → home-boot.js → prefs.js �
 | `like-fix.js` | Like UI refresh, Liked Songs in library |
 | `events.js` / `events.css` | Events page overlay (`#/events`), schedule UI |
 | `events.json` | Public upcoming/released schedule (repo root) |
-| `styles.css` / `fix.css` / `account.css` | Layout, spacing, opaque player, like pills |
+| `styles.css` / `fix.css` / `account.css` / `mobile.css` | Layout, spacing, opaque player, like pills, mobile clamp |
 | `catalog.json` | Published snapshot |
 | `scripts/sync_catalog.py` | Rebuild snapshot from Mureka |
 
