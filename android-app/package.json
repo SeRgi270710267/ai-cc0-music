@@ -1,0 +1,24 @@
+{
+  "name": "ai-cc0-music-android",
+  "version": "1.0.0",
+  "description": "Capacitor Android wrapper for AI CC0 Music (live GitHub Pages)",
+  "type": "module",
+  "keywords": ["capacitor", "mobile"],
+  "scripts": {
+    "start": "vite",
+    "build": "echo 'Live-site wrapper; no web build required' && mkdir -p www",
+    "preview": "vite preview",
+    "sync": "npx cap sync android",
+    "open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "8.5.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "vite": "^7.3.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
