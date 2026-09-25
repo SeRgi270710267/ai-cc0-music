@@ -25,7 +25,7 @@ Spotify-style static player for the public [Mureka](https://www.mureka.ai/profil
 
 - Spotify-like shell: sidebar, Home feed, Search, **Events**, Library, artist page, album/track pages, bottom player, lyrics, queue.
 - **Events** (`#/events`): static schedule from `events.json` (album/single/show drops). Edit the JSON and push — no backend.
-- Mobile: shared topbar + Events hero/cards clamp to narrow phones (~412px); no horizontal page scroll. Cache `?v=events2`.
+- Mobile: `mobile.css` overlay clamps shared topbar + Events hero/cards on narrow phones (~412px); no horizontal page scroll. Cache `?v=events2`.
 - Catalog: artist **AI CC0 Music**; tracks **Un Ange en Danger**, **For America**; voices **Joanny**, **Sivle**; video **Le Rock Encore**; CC0.
 - Home chips: All, Music, Playlists, Artists, Albums, Videos.
 - **This Is Joanny / This Is Sivle** are playlists. **Joanny / Sivle** are artists. **AI CC0 Music** is the artist.
@@ -51,7 +51,7 @@ core.js → account.js → views.js → boot.js → home-boot.js → prefs.js �
 | `like-fix.js` | Like UI refresh, Liked Songs in library |
 | `events.js` / `events.css` | Events page overlay (`#/events`), schedule UI |
 | `events.json` | Public upcoming/released schedule (repo root) |
-| `styles.css` / `fix.css` / `account.css` | Layout, spacing, opaque player, like pills |
+| `styles.css` / `fix.css` / `account.css` / `mobile.css` | Layout, spacing, opaque player, like pills, mobile clamp |
 | `catalog.json` | Published snapshot |
 | `scripts/sync_catalog.py` | Rebuild snapshot from Mureka |
 
