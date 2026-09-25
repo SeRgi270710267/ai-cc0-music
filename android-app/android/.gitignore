@@ -1,0 +1,15 @@
+*.apk
+*.aar
+*.dex
+*.class
+.gradle/
+build/
+local.properties
+capacitor-cordova-android-plugins
+app/src/main/assets/public
+app/src/main/assets/capacitor.config.json
+app/src/main/assets/capacitor.plugins.json
+keystore.properties
+keystore/
+*.jks
+*.keystore
