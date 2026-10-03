@@ -3,7 +3,7 @@
   "name": "146903878795265",
   "stage_name": "146903878795265",
   "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260727/92a80679-bcbe-4532-a957-074ab58ff44f.jpg",
-  "likes": 642,
+  "likes": 710,
   "country": null,
   "mureka_url": "https://www.mureka.ai/profile?user_id=146903878795265",
   "license": "CC0",
@@ -29,10 +29,10 @@
       "model": "V9",
       "published_at": 1785397509,
       "generated_at": 1785180998,
-      "play_count": 27,
+      "play_count": 30,
       "share_count": 1,
       "fav_count": 1,
-      "character": "Joanny",
+      "character": "Joanny 1983",
       "character_id": 147487243501569,
       "lyrics": [
         {
@@ -198,7 +198,7 @@
       "model": "V9",
       "published_at": 1785320123,
       "generated_at": 1785225615,
-      "play_count": 28,
+      "play_count": 29,
       "share_count": 4,
       "fav_count": 1,
       "character": "Sivle",
@@ -421,10 +421,12 @@
   "characters": [
     {
       "id": 147487243501569,
-      "name": "Joanny",
+      "name": "Joanny 1983",
       "tags": [
         "Male",
-        "Roi"
+        "Roi",
+        "Rock",
+        "France"
       ],
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/f7015810-dbef-49f9-b283-8241374881ca.jpg"
     },
@@ -440,5 +442,5 @@
       "avatar": "https://static-cos.mureka.ai/cos-prod/files/146903878795265/20260711/1c8e4751-6ac6-411e-b86b-2b2b91189c1d.jpg"
     }
   ],
-  "synced_at": "2026-10-02T12:15:13Z"
+  "synced_at": "2026-10-03T11:25:53Z"
 }
